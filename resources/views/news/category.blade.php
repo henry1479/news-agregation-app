@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>News-Agregator</title>
+        <title>News</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,24 +21,12 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-            <div>
-                <h1>Welcome to News Agregator!</h1>
-                <p class="mx-auto">Have good time and relax!</p>
-            </div>
-        </div>
+        <h2>News Volumes</h2>
+        @foreach ($news as $key=>$value)
+            <article>
+                <a href="{{route('categories')}}/{{$key}}"><h3>{{ $key }}</h3></a>
+            </article>
+        @endforeach
+        <a href="/"><- Back</a>
     </body>
-</html>
+<html>

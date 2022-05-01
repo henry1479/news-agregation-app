@@ -2,6 +2,8 @@
 
 use Faker\Provider\Lorem;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\CategoryController as CategoryController;
+use \App\Http\Controllers\NewsController as NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,21 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/info', function() {
+
+Route::get('/', function() {
     $info = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem quos deleniti illum accusamus porro id excepturi, impedit nobis, numquam sapiente a, voluptas quis fuga ullam nesciunt velit at ipsa vero.';
     return view('info', ['info'=> $info]);
 });
 
 
-Route::get('/news', function() {
-    $news = [
-        'news-1'=>'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem quos deleniti illum accusamus porro id excepturi, impedit nobis, numquam sapiente a, voluptas quis fuga ullam nesciunt velit at ipsa vero.',
-        'news-2'=>'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium repellendus maiores sed non soluta autem, sint similique molestiae quasi corrupti magnam, omnis debitis voluptas? Magni ipsam tempora illo labore corrupti!
-        Perspiciatis, voluptatum cumque quidem aperiam possimus ad nobis magni esse minima facere quasi hic blanditiis beatae eveniet officia optio eligendi provident accusantium dignissimos quae aliquam dolorum. Ipsam ea quis exercitationem.'
-    ];
-    return view('news', ['news'=> $news]);
+Route::group(['prefix'=>'news'], function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('categories');
+    Route::get('/{category}', [NewsController::class, 'index']);
+    Route::get('/{category}/{id}', [NewsController::class, 'index']);
 });
