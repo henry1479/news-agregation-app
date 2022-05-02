@@ -25,7 +25,8 @@ class Controller extends BaseController
                     'title' => $faker->text(15),
                     'image' => $faker->imageUrl(),
                     'description' => $faker->text(250),
-                    'created_at' => now()
+                    'created_at' => now(),
+                    'author' => $faker->lasTName()
                 ];
             }
             $news[] = $arr;
