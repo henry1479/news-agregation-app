@@ -9,13 +9,12 @@
         <a href="#" class="post-catagory">{{ $category }}</a>
         <h2 class="post-title">{{ $news['title'] }}</h2>
         <div class="post-meta">
-
             <!-- Post Details Meta Data -->
             <div class="post-details-meta-data mb-50 d-flex align-items-center justify-content-between">
                 <!-- Post Author & Date -->
                 <div class="post-authors-date">
-                    <p class="post-author">By <a href="#">{{ $news['author']}}</a></p>
-                    <p class="post-date">{{ $news['created_at']}}</p>
+                    <p class="post-author">By <a href="#">{{ $news['author'] }}</a></p>
+                    <p class="post-date">{{ $news['created_at'] }}</p>
                 </div>
                 <!-- View Comments -->
                 <div class="view-comments">

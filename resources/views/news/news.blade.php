@@ -2,7 +2,7 @@
 @section('content')
 
 
-<h2>List of the Articals</h2>
+<h2>List of the Articales</h2>
 @foreach ($news as $value)
 
 

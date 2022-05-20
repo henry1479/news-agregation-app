@@ -35,11 +35,12 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <!-- Newsletter Widget -->
                     <div class="newsletter-widget">
-                        <h4>Sign up to <br>our newsletter</h4>
-                        <form action="#" method="post">
-                            <input type="text" name="text" placeholder="Name">
-                            <input type="email" name="email" placeholder="Email">
-                            <button type="submit" class="btn w-100">Subscribe</button>
+                    <h4>Leave <br>your feedback</h4>
+                        <form action="{{ route('feedbacks.store')}}" method="post">
+                            @csrf
+                            <input type="text" id ="name" name="user_name" placeholder="Name" value="{{ old('user_name')}}"/>
+                            <input type="text" id="feedback" name="feedback_body" value="{!! old('feedback_body') !!}" placeholder="Leave your feedback"/>
+                            <button type="submit" class="btn w-100">Send</button>
                         </form>
                     </div>
                 </div>

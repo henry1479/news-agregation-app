@@ -1,5 +1,17 @@
 <div class="col-12 col-lg-4">
-    <div class="sidebar-area">      
+    
+    <div class="sidebar-area"> 
+    <div class="newsletter-widget mb-70">
+        <!-- форма для отзывов пользователей -->
+        <h4>Leave <br>your feedback</h4>
+       
+        <form action="{{ route('feedbacks.store')}}" method="post">
+            @csrf
+            <input type="text" id ="name" name="user_name" placeholder="Name" value="{{ old('user_name')}}"/>
+            <input type="text" id="feedback" name="feedback_body" value="{!! old('feedback_body') !!}" placeholder="Leave your feedback"/>
+            <button type="submit" class="btn w-100">Send</button>
+        </form>
+    </div>     
         <!-- Trending Articles Widget -->
         <div class="treading-articles-widget mb-70">
             <h4>Trending Articles</h4>

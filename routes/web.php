@@ -3,7 +3,10 @@
 use Faker\Provider\Lorem;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\CategoryController as CategoryController;
+use App\Http\Controllers\FeedbacksController as FeedbacksController;
 use \App\Http\Controllers\NewsController as NewsController;
+use App\Http\Controllers\OrdersController as OrdersController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +27,18 @@ Route::get('/', function() {
 });
 
 
+// роуты новостей и категорий новостей
 Route::group(['prefix'=>'news'], function () {
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
     Route::get('/{category}', [NewsController::class, 'index']);
     Route::get('/{category}/{id}', [NewsController::class, 'index']);
 });
+// отзывы
+Route::get('/feedbacks', [FeedbacksController::class, 'index'])->name('feedbacks');
+Route::post('/feedbacks/store', [FeedbacksController::class, 'store'])->name('feedbacks.store');
+
+// оформление заказа
+Route::group(['name'=>'orders'], function(){
+    Route::resource('/orders', OrdersController::class);
+});
+
