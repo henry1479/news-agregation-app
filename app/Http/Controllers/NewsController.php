@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\News;
 
 class NewsController extends Controller
 {
@@ -13,18 +14,25 @@ class NewsController extends Controller
      * @param integer $id
      * @return void 
      */
-    public function index($category, $id=null)
+    public function index($category, $news_id=null)
     { 
-        $news = $this->getNews();
-        $data = $news[$category];
-        // dump($data);
-        $template = ($id) ? 'news.concrete_news':'news.news';
-        if($id) {
-            $data = $news[$category][$id-1];
-            // dump($data);
+
+        $modelNews = app(News::class);
+        $news = $modelNews->getNewsByCategoryTitle($category)->all();
+        // dump($news);
+        
+        $template = 'news.news';
+        if($news_id) {
+            $news = $modelNews->getNewsById($news_id)->first();
+            $template = 'news.concrete_news';
+            // dump($news);
         }
-        return view($template , ['news'=> $data, 'category' => $category]);
+        
+        return view($template , ['news'=> $news, 'category' => $category]);
     }
+
+
+
 
     // public function show($category, $id)
     // {

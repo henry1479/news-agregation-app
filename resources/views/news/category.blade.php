@@ -1,15 +1,14 @@
-
 @extends('index')
 @section('content')
 <div style="margin-bottom: 10%;">
     <h2>News Volumes</h2>
 </div>
-@foreach ($news as $key=>$value)
+@foreach($news as $category)
     <div class="col-12 col-lg-6">
         <div class="single-blog-post style-3">
             <div class="post-data">
-                <a href="{{route('categories')}}/{{$key}}" class="post-title">
-                    <h6>{{ $key }}</h6>
+                <a href="{{route('categories')}}/{{$category->title}}" class="post-title">
+                    <h6>{{ $category->title }}</h6>
                 </a>
             </div>
         </div>

@@ -636,7 +636,7 @@ textarea:focus {
     margin-bottom: 40px; }
     .single-blog-post.style-3 .post-data .post-catagory {
       background-color: #e20378;
-      width: 88px;
+      width: 100%;
       height: 25px;
       color: #fff;
       display: block;

@@ -31,7 +31,7 @@ Route::get('/', function() {
 Route::group(['prefix'=>'news'], function () {
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
     Route::get('/{category}', [NewsController::class, 'index']);
-    Route::get('/{category}/{id}', [NewsController::class, 'index']);
+    Route::get('/{category}/{news_id}', [NewsController::class, 'index']);
 });
 // отзывы
 Route::get('/feedbacks', [FeedbacksController::class, 'index'])->name('feedbacks');
