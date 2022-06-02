@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-
+use App\Models\Order;
+use App\Queries\OrderQueryBuilder;
 
 class OrdersController extends Controller
 {
@@ -14,9 +15,11 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($state=false)
+    public function index(OrderQueryBuilder $builder, Order $orders)
     {
-        return view('orders.index', ['state' => $state]);
+        $orders = $builder->getOrders();
+        return view('orders.index',['orders'=>$orders]);
+
     }
 
     /**
@@ -26,7 +29,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        return view('orders.create');
     }
 
     /**
@@ -37,12 +40,15 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        // преобразуем в строку json
-        $info = json_encode($request->except('_token'));
-        // записываем в текстовой файл
-        Storage::disk('local')->append('order_info.txt', $info);
-        // выводим страницу формы с сообщением об успехе
-        return $this->index(true);
+        $validated = $request->except(['_token']);
+        $order = Order::create($validated);
+        if($order->save()){
+            return redirect()
+            ->route('orders.index')
+            ->with('success','the node is added successfully');
+        }
+        
+        return back()->with('error', 'Error of adding');
     }
 
     /**
@@ -59,24 +65,35 @@ class OrdersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Order $order
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Order $order)
     {
-        //
+//         dd($order);
+        return view('orders.edit', ['order'=>$order]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Order $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Order $order, Request $request)
     {
-        //
+//         dump($request->except(['_token']));
+        $validated = $request->except(['_token']);
+        $order = $order->fill($validated);
+//         dd($order);
+        if($order->save()){
+            return  redirect()
+            ->route('orders.index')
+            ->with('success','the changes is added successfully');
+        }
+        
+        return back()->with('error', 'Error of adding');
     }
 
     /**
@@ -87,6 +104,6 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

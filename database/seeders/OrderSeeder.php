@@ -5,18 +5,16 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory;
-use \Str;
 use \DB;
 
-class NewsSeeder extends Seeder
+class OrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-
-    protected $table = "news";
+    protected $table = "orders";
 
     public function run()
     {
@@ -27,14 +25,12 @@ class NewsSeeder extends Seeder
     {
         $data=[];
         $faker = Factory::create();
-        for($i=0; $i<200; $i++){
-            $title= $faker->jobTitle();
+        for($i=0; $i<100; $i++){
             $data[] = [
-                'category_id'=>rand(1,20),
-                'title' => $title,
-                'slug'=> Str::slug($title),
-                'author'=>$faker->userName(),
-                'description' => $faker->text()
+                'user_name' => $faker->userName(),
+                'user_email'=> $faker->email(),
+                'user_phone'=> $faker->phoneNumber(),
+                'order_info'=> $faker->text()
             ];
         }
         return $data;

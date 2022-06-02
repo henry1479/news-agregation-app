@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Queries\FeedbackQueryBuilder;
+use App\Models\Feedback;
 
 class FeedbacksController extends Controller
 {
 
 
-    public function setData($data){
-        $this->data[] = $data;
-    }
-
-    public function index($state=false, $data = [])
+    
+    public function index(FeedbackQueryBuilder $builder)
     {
-        dump($state);
-        return view('feedbacks.index', ['success' => $state, 'data' => $data]);
+        $feeds = $builder->getFeedbacks();
+        return view('feedbacks.index', [ 'feeds' => $feeds]);
     }
     /**
      * save the feedbacks from users
@@ -25,11 +24,15 @@ class FeedbacksController extends Controller
     
     public function store(Request $request)
    {
-        // получаем данные из формы кроме поля _token
-        $data = $request->except('_token');
-        // для тестирования json
-        // return response()->json($data,201);
-        // переходим на ту же страницу с сообщением об успехе
-        return $this->index(true, $data);
-    }
+       $validated = $request->except(['_token']);
+       $feed = Feedback::create($validated);
+       if($feed->save()){
+           return redirect()
+           ->route('feedbacks.index')
+           ->with('success','the feedback is added successfully');
+       }
+       
+       return back()->with('error', 'Error adding of the the feedbacks ');
+       
+   }
 }

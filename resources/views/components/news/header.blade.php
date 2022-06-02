@@ -77,8 +77,8 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ route('feedbacks')}}">Feedbacks</a></li>
-                                <li><a href="{{ route('orders.index')}}">Make Order</a></li>
+                                <li><a href="{{ route('feedbacks.index')}}">Feedbacks</a></li>
+                                <li><a href="/orders/create">Make Order</a></li>
                                 <li><a href="index.html">Don’t Miss</a></li>
                                 <li><a href="#">Mega Menu</a>
                                     <div class="megamenu">

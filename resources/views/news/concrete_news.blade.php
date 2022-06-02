@@ -26,8 +26,9 @@
             <p>{{ $news -> description }}</p>
         </div>
     </div>
+    <a href="{{ route('news.edit', ['news_id'=>$news->id])}}"><h4>Edit this news</h4></a>
     <div class="login-with-facebook my-5">
         <a href="{{ route('categories')}}/{{ $category }}">Back to news</a>
     </div>
 </div>
-@endsection('content')
+@endsection('content') 

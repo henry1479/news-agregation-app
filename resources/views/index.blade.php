@@ -23,7 +23,6 @@
     <!-- ##### Header Area Start ##### -->
     <x-news.header></x-news.header>
     <!-- ##### Header Area End ##### -->
-
     <!-- ##### Blog Post Area Start ##### -->
     <div class="viral-story-blog-post section-padding-0-50">
         <div class="container">

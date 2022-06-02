@@ -16,6 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         // регистрируем сидеры
-        $this->call([CategorySeeder::class, NewsSeeder::class, SourceSeeder::class]);
+        $this->call([
+            CategorySeeder::class,
+            NewsSeeder::class,
+            SourceSeeder::class,
+            FeedbackSeeder::class,
+            OrderSeeder::class
+        ]);
     }
 }

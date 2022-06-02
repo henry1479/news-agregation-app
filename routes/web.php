@@ -27,14 +27,21 @@ Route::get('/', function() {
 });
 
 
-// роуты новостей и категорий новостей
+// роуты новостей
 Route::group(['prefix'=>'news'], function () {
+    Route::get('/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/store', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/edit/{news_id}', [NewsController::class, 'edit'])->name('news.edit');
+    Route::post('/update/{news}', [NewsController::class, 'update'])->name('news.update');
+
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
     Route::get('/{category}', [NewsController::class, 'index']);
-    Route::get('/{category}/{news_id}', [NewsController::class, 'index']);
+    Route::get('/{category}/{news_id}', [NewsController::class, 'show']);
+
+
 });
 // отзывы
-Route::get('/feedbacks', [FeedbacksController::class, 'index'])->name('feedbacks');
+Route::get('/feedbacks', [FeedbacksController::class, 'index'])->name('feedbacks.index');
 Route::post('/feedbacks/store', [FeedbacksController::class, 'store'])->name('feedbacks.store');
 
 // оформление заказа
@@ -42,3 +49,10 @@ Route::group(['name'=>'orders'], function(){
     Route::resource('/orders', OrdersController::class);
 });
 
+// создание и редактировние категорий
+Route::group(['prefix'=>'category'], function(){
+    Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/edit/{category_id}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/update/{category}', [CategoryController::class, 'update'])->name('category.update');
+});
