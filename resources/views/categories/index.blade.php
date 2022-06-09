@@ -3,6 +3,7 @@
 <div style="margin-bottom: 10%;">
     <h2>News Volumes</h2>
 </div>
+@include('inc.messages')
 @foreach($news as $category)
     <div class="col-12 col-lg-6">
         <div class="single-blog-post style-3">

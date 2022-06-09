@@ -8,6 +8,11 @@ use App\Models\Feedback;
 
 class FeedbacksController extends Controller
 {
+    
+    private $rules = [
+        'user_name'=>'required|min:2|max:20',
+        'feedback_body'=> 'required|string|min:10'
+    ];
 
 
     
@@ -24,7 +29,7 @@ class FeedbacksController extends Controller
     
     public function store(Request $request)
    {
-       $validated = $request->except(['_token']);
+       $validated = $request->validate($this->rules);
        $feed = Feedback::create($validated);
        if($feed->save()){
            return redirect()

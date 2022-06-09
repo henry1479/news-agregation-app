@@ -1,5 +1,4 @@
 <div class="col-12 col-lg-4">
-    
     <div class="sidebar-area"> 
     <div class="newsletter-widget mb-70">
         <!-- форма для отзывов пользователей -->

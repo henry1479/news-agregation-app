@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateRequest;
+use App\Models\Category;
 use App\Models\News;
 use App\Queries\NewsQueryBuilder;
-use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
 
 class NewsController extends Controller
 {
@@ -13,67 +14,72 @@ class NewsController extends Controller
     // вывод новостей по категориям
     public function index(NewsQueryBuilder $news, $category)
     {
-        return view('news.index', ['news'=>$news->getNews($category)]);
+       
+        return view('news.index', [
+            'news' => $news->getNews($category)
+        ]);
     }
 
     // вывод конкретной новости
     public function show(NewsQueryBuilder $news, $category, $id)
     {
-        return view('news.concrete_news',['news'=>$news->getNewsById($id), 'category'=>$category]);
+        return view('news.concrete_news', [
+            'news' => $news->getNewsById($id),
+            'category' => $category
+        ]);
     }
-
 
     // вывод формы для добавления новости
     public function create()
     {
-        $categories=Category::all();
-        return view('news.create', ['categories'=>$categories]);
+        $categories = Category::all();
+        return view('news.create', [
+            'categories' => $categories
+        ]);
     }
 
-
     // сохранение новости в базе данных
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         
-        $validated = $request->except(['_token']);
+        dd($request->image->path());
+        $validated = $request->validated();
 
-        $validated['slug'] =\Str::slug($validated['title']);
+        $validated['slug'] = \Str::slug($validated['title']);
 
         $news = News::create($validated);
-
-        if($news->save()){
-            return redirect()
-            ->route('categories')
-            ->with('success','node is added successfully');
+        $category = Category::find($news->category_id);
+        
+        if ($news->save()) {
+            return redirect('news/' . $category->title . '/' .$news->id)->with('success', 'node is added successfully');
         }
 
         return back()->with('error', 'Error of adding');
-
     }
 
     public function edit(NewsQueryBuilder $news, $news_id)
     {
         $news = $news->getNewsById($news_id);
         $categories = Category::all();
-        return view('news.edit',[
-            'news'=>$news,
-            'categories'=>$categories
+        return view('news.edit', [
+            'news' => $news,
+            'categories' => $categories
         ]);
     }
 
-    public function update(News $news, Request $request)
+    public function update(News $news, UpdateRequest $request)
     {
         
-        $validated = $request->except(['_tocken']);
-        $news= $news->fill($validated);
-        // dd($news);
-        if($news->save()){
-            return  redirect()
-            ->route('categories')
-            ->with('success','node is added successfully');
-        }
 
-        return back()->with('error', 'Error of adding');
+       $validated =  $request->validated();
+       $news = $news->fill($validated);
+       
+       $category = Category::find($news->category_id);
+       
+       if ($news->save()) {
+           return redirect('news/' . $category->title . '/' .$news->id)->with('success', 'node is stored successfully');
+       }
+
+        return back()->with('error', 'Error of updating');
     }
-
 }

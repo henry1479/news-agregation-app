@@ -1,6 +1,6 @@
 @extends('index')
 @section('content')
-
+@include('inc.messages')
 <!-- форма заказа -->
 <div class="newsletter-widget mb-70">
 <h2>Make order</h2>

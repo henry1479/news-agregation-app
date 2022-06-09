@@ -1,5 +1,5 @@
 <footer class="footer-area">
-
+	@include('inc.messages')
     <!-- Main Footer Area -->
     <div class="main-footer-area">
         <div class="container">

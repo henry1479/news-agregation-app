@@ -10,6 +10,12 @@ use App\Queries\OrderQueryBuilder;
 
 class OrdersController extends Controller
 {
+    private $rules = [
+        'user_name'=>'required|min:2|max:20',
+        'user_email'=>'required|email',
+        'user_phone'=> 'sometimes',
+        'order_info'=> 'required|string|min:10'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +46,7 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->except(['_token']);
+        $validated = $request->validate($this->rules);
         $order = Order::create($validated);
         if($order->save()){
             return redirect()
@@ -84,7 +90,7 @@ class OrdersController extends Controller
     public function update(Order $order, Request $request)
     {
 //         dump($request->except(['_token']));
-        $validated = $request->except(['_token']);
+        $validated = $request->validate($this->rules);
         $order = $order->fill($validated);
 //         dd($order);
         if($order->save()){

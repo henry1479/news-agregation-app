@@ -2,7 +2,7 @@
 @section('content')
 
 <div style="margin-bottom: 10%;">
-    <h2>Edit news</h2>
+    <h2>Edit order</h2>
 </div>
 @include('inc.messages')
 <div>

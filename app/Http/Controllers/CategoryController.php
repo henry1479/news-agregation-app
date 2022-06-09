@@ -7,9 +7,24 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Queries\CategoryQueryBuilder;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
 
 class CategoryController extends Controller
 {
+    
+    private $rules = [
+        'title'=> [
+            'required',
+            'string',
+            'min:5',
+            'max:250'
+        ],
+        'description' => [
+            'nullable',
+            'string'
+        ]
+    ];
     // выводит категории
     public function index(CategoryQueryBuilder $categories)
     {
@@ -27,7 +42,8 @@ class CategoryController extends Controller
     // сохранение в базе данных новой категории
     public function store(Request $request)
     {
-        $validated = $request->only(['title','price']);
+        
+        $validated = $request->validate($this->rules);
         $category = Category::create($validated);
         if($category->save())
         {
@@ -65,8 +81,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-       
-        $validated = $request->only(['title','description']);
+        $validated = $request->validate($this->rules);
         $category = $category->fill($validated);
        
         if($category->save()){
