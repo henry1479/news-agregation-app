@@ -42,8 +42,7 @@ class NewsController extends Controller
     public function store(StoreRequest $request)
     {
         
-        dd($request->image->path());
-        $validated = $request->validated();
+        $validated = $request->except(['_token']);
 
         $validated['slug'] = \Str::slug($validated['title']);
 
@@ -57,6 +56,7 @@ class NewsController extends Controller
         return back()->with('error', 'Error of adding');
     }
 
+    // вывод формы для редактирования новости
     public function edit(NewsQueryBuilder $news, $news_id)
     {
         $news = $news->getNewsById($news_id);
@@ -67,11 +67,11 @@ class NewsController extends Controller
         ]);
     }
 
+    // обновление новости в базе данных
     public function update(News $news, UpdateRequest $request)
     {
         
-
-       $validated =  $request->validated();
+       $validated =  $request->except(['_token']);
        $news = $news->fill($validated);
        
        $category = Category::find($news->category_id);
@@ -81,5 +81,19 @@ class NewsController extends Controller
        }
 
         return back()->with('error', 'Error of updating');
+    }
+
+    // удаление новости из базы данных
+    public function destroy($id)
+    {
+        try {
+           $news = News::find($id);
+           $news->delete();
+           return response()->json([$id => 'the news deleted successfully']);
+        } catch (\Exception $e) {
+            \Log::error($e->getMessage());
+            return response()->json(['error'=>true], 400);
+        }
+
     }
 }

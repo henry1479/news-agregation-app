@@ -13,7 +13,7 @@ class OrdersController extends Controller
     private $rules = [
         'user_name'=>'required|min:2|max:20',
         'user_email'=>'required|email',
-        'user_phone'=> 'sometimes',
+        'user_phone'=> 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
         'order_info'=> 'required|string|min:10'
     ];
     /**
@@ -46,7 +46,8 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate($this->rules);
+        $request->validate($this->rules);
+        $validated = $request->except(['_token']);
         $order = Order::create($validated);
         if($order->save()){
             return redirect()
@@ -76,7 +77,7 @@ class OrdersController extends Controller
      */
     public function edit(Order $order)
     {
-//         dd($order);
+
         return view('orders.edit', ['order'=>$order]);
     }
 
@@ -89,10 +90,11 @@ class OrdersController extends Controller
      */
     public function update(Order $order, Request $request)
     {
-//         dump($request->except(['_token']));
-        $validated = $request->validate($this->rules);
+
+        $request->validate($this->rules);
+        $validated= $request -> except(['_token']);
         $order = $order->fill($validated);
-//         dd($order);
+
         if($order->save()){
             return  redirect()
             ->route('orders.index')

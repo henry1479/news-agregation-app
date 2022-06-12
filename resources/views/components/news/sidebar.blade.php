@@ -6,9 +6,9 @@
        
         <form action="{{ route('feedbacks.store')}}" method="post">
             @csrf
-            <input type="text" id ="name" name="user_name" placeholder="Name" value="{{ old('user_name')}}"/>
-            <input type="text" id="feedback" name="feedback_body" value="{!! old('feedback_body') !!}" placeholder="Leave your feedback"/>
-            <button type="submit" class="btn w-100">Send</button>
+            <input type="text" id ="name" dusk="feedback_username" name="user_name" placeholder="Name" value="{{ old('user_name')}}"/>
+            <input type="text" id="feedback" dusk="feedback_body" name="feedback_body" value="{!! old('feedback_body') !!}" placeholder="Leave your feedback"/>
+            <button type="submit" dusk="send_feedback" class="btn w-100">Send</button>
         </form>
     </div>     
         <!-- Trending Articles Widget -->

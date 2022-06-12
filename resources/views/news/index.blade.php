@@ -17,7 +17,8 @@
             <div class="post-meta">
                 <small class="post-data">created at: 20.10.22</small>
             </div>
-        </div>       
+        </div>
+        <a href="#" class="delete" rel="{{ $newsItem->id }}" category="{{ $newsItem->category_title}}"><h6>Delete this news</h6></a>       
     </div>
 </div>
 <hr/>
@@ -28,3 +29,6 @@
     <a href="{{ route('categories')}}">Back to categories</a>
 </div>
 @endsection('content')
+@push('js')
+<script src="{{ asset('js/userModules/deleteNews.js')}}"></script>
+@endpush

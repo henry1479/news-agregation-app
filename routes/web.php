@@ -37,7 +37,7 @@ Route::group(['prefix'=>'news'], function () {
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
     Route::get('/{category}', [NewsController::class, 'index']);
     Route::get('/{category}/{news_id}', [NewsController::class, 'show']);
-
+    Route::delete('/delete/{news_id}', [NewsController::class, 'destroy']);
 
 });
 // отзывы

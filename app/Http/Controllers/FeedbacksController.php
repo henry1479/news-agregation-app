@@ -28,16 +28,17 @@ class FeedbacksController extends Controller
      */
     
     public function store(Request $request)
-   {
-       $validated = $request->validate($this->rules);
+    {
+    $request->validate($this->rules);
+    $validated = $request->except(['_tocken']);
        $feed = Feedback::create($validated);
        if($feed->save()){
            return redirect()
            ->route('feedbacks.index')
-           ->with('success','the feedback is added successfully');
+           ->with('success',trans('message.feedbacks.store.success'));
        }
        
-       return back()->with('error', 'Error adding of the the feedbacks ');
+       return back()->with('error', __('message.feedbacks.store.error'));
        
    }
 }

@@ -31,4 +31,4 @@
         <a href="{{ route('categories')}}/{{ $category }}">Back to news</a>
     </div>
 </div>
-@endsection('content') 
+@endsection

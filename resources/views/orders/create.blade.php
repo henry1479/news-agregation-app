@@ -10,7 +10,7 @@
         <input type="email" id="user_email" name="user_email" value="{{ old('user_email') }}" placeholder="email"/>
         <input type="tel" id="user_phone" name="user_phone" value="{{ old('user_phone') }}" placeholder="phone"/>
         <input type="text" id="info" name="order_info" value="{{ old('order_info') }}" placeholder="Information about"/>
-        <button type="submit" class="btn w-100">Send order</button>
+        <button type="submit" dusk="send" class="btn w-100">Send order</button>
     </form>
 </div>
 

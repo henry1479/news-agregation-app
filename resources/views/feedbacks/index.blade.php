@@ -1,5 +1,6 @@
 @extends('index')
 @section('content')
+@include('inc.messages')
 <p>Feedbacks</p>
  @forelse($feeds as $feed)
   <div class="post-details-meta-data mb-50 d-flex align-items-center justify-content-between">
@@ -10,7 +11,6 @@
             <hr>
         </div>
    </div>
-	 
  @empty
  <h2>It is not feeds now</h2>
  @endforelse
