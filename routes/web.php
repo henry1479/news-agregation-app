@@ -1,11 +1,15 @@
 <?php
 
-use Faker\Provider\Lorem;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\CategoryController as CategoryController;
-use App\Http\Controllers\FeedbacksController as FeedbacksController;
 use \App\Http\Controllers\NewsController as NewsController;
 use App\Http\Controllers\OrdersController as OrdersController;
+use \App\Http\Controllers\CategoryController as CategoryController;
+use App\Http\Controllers\FeedbacksController as FeedbacksController;
+use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 
 /*
@@ -26,6 +30,11 @@ Route::get('/', function() {
     return view('info', ['info'=> $info]);
 });
 
+// админские роуты'
+Route::group(['prefix'=>'admin','name'=>'admin'], function(){
+    Route::resource('/news', AdminNewsController::class);
+    Route::resource('/categories', AdminCategoryController::class);
+});
 
 // роуты новостей
 Route::group(['prefix'=>'news'], function () {
@@ -45,7 +54,7 @@ Route::get('/feedbacks', [FeedbacksController::class, 'index'])->name('feedbacks
 Route::post('/feedbacks/store', [FeedbacksController::class, 'store'])->name('feedbacks.store');
 
 // оформление заказа
-Route::group(['name'=>'orders'], function(){
+Route::group(['name'=>'orders','middleware' => 'admin'], function(){
     Route::resource('/orders', OrdersController::class);
 });
 
@@ -56,3 +65,21 @@ Route::group(['prefix'=>'category'], function(){
     Route::get('/edit/{category_id}', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('/update/{category}', [CategoryController::class, 'update'])->name('category.update');
 });
+// роут сессии
+Route::get('/sessions', function(){
+    session()->put('test', 'testData');
+    dump(session()->get('test'));
+    if(session()->has('test')) {
+        session()->remove('test');
+    }
+});
+
+
+Route::group(['middleware'=>'auth'], function() {
+    Route::get('/account', AccountController::class)->name('account');
+});
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -32,30 +32,9 @@ class CategoryController extends Controller
         return view('categories.index', ['news'=> $categories->getCategories()]);
     }
 
-    // выводит форму для создания категорий
-    public function create()
-    {
-        return view('categories.create');
-    }
 
 
-    // сохранение в базе данных новой категории
-    public function store(Request $request)
-    {
-        
-        $validated = $request->validate($this->rules);
-        $category = Category::create($validated);
-        if($category->save())
-        {
-            return redirect()
-                ->route('categories')
-                ->with('success','node is added successfully');
-        }
 
-        return back()->with('error','Error of adding');
-
-
-    }
 
 
     /**
