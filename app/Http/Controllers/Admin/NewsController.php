@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Queries\NewsQueryBuilder;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class NewsController extends Controller
 {
@@ -13,9 +15,14 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(NewsQueryBuilder $news, $id)
     {
-        
+    
+        $category = Category::find($id);
+        dd($category);
+        return view('admin.news.index', [
+            'news' => $news->getNews($category)
+        ]);
     }
 
     /**
@@ -47,7 +54,7 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        //
+          
     }
 
     /**

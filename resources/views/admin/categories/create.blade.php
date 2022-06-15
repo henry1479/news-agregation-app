@@ -6,7 +6,7 @@
 </div>
 @include('inc.messages')
 <div>
-    <form action="{{ route('category.store')}}" method="post">
+    <form action="{{ route('admin.categories.store')}}" method="post">
         @csrf
         <label class="form-label" for="title">Title</label>
         <input class="form-control mb-3" type="text" name="title" />
@@ -17,6 +17,6 @@
 </div>
 
 <div class="login-with-facebook my-5">
-        <a href="{{ route('categories')}}">Back to categories</a>
+        <a href="{{ route('admin.categories.index')}}">Back to categories</a>
     </div>
 @endsection

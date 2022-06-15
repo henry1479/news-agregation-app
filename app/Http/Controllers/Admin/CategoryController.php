@@ -9,6 +9,18 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private $rules = [
+        'title'=> [
+            'required',
+            'string',
+            'min:5',
+            'max:250'
+        ],
+        'description' => [
+            'nullable',
+            'string'
+        ]
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -39,12 +51,13 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         
-        $validated = $request->validate($this->rules);
+        $request->validate($this->rules);
+        $validated = $request->except(['_token']);
         $category = Category::create($validated);
         if($category->save())
         {
             return redirect()
-                ->route('categories')
+                ->route('admin.categories.index')
                 ->with('success','node is added successfully');
         }
 
@@ -72,7 +85,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view("admin.categories.edit", ["category_info" => $category]);
     }
 
     /**
@@ -84,7 +97,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate($this->rules);
+        $validated = $request->except(['_token']);
+        $category = $category->fill($validated);
+        
+        if($category->save()){
+            return redirect()
+            ->route('admin.categories.index')
+            ->with('success','node is added successfully');
+        }
+        
+        return back()->with('error','Error of editing');
     }
 
     /**
@@ -95,6 +118,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        
     }
 }

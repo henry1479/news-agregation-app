@@ -12,7 +12,7 @@ class NewsController extends Controller
 {
 
     // вывод новостей по категориям
-    public function index(NewsQueryBuilder $news, $category)
+    public function index(NewsQueryBuilder $news, string $category)
     {
        
         return view('news.index', [

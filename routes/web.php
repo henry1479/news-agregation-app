@@ -31,9 +31,10 @@ Route::get('/', function() {
 });
 
 // админские роуты'
-Route::group(['prefix'=>'admin','name'=>'admin'], function(){
-    Route::resource('/news', AdminNewsController::class);
+Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
     Route::resource('/categories', AdminCategoryController::class);
+    Route::resource('/news', AdminNewsController::class);
+   
 });
 
 // роуты новостей
@@ -58,13 +59,7 @@ Route::group(['name'=>'orders','middleware' => 'admin'], function(){
     Route::resource('/orders', OrdersController::class);
 });
 
-// создание и редактировние категорий
-Route::group(['prefix'=>'category'], function(){
-    Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
-    Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
-    Route::get('/edit/{category_id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('/update/{category}', [CategoryController::class, 'update'])->name('category.update');
-});
+
 // роут сессии
 Route::get('/sessions', function(){
     session()->put('test', 'testData');

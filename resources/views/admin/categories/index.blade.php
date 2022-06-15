@@ -8,10 +8,10 @@
     <div class="col-12 col-lg-6">
         <div class="single-blog-post style-3">
             <div class="post-data">
-                <a href="{{route('categories')}}/{{$category->title}}" class="post-title">
+                <a href="{{ route('admin.news.index')}}/{{ $category->id }}" class="post-title">
                     <h6>{{ $category->title }}</h6>
                 </a>
-                <a href="{{ route('category.edit', ['category_id'=> $category->id])}}">
+                <a href="{{ route('admin.categories.edit', ['category'=>$category->id])}}">
                     Edit category
                 </a>
             </div>
@@ -22,7 +22,7 @@
 {{$news->links()}}
 
 
-<a class="btn-lg btn-info"href="{{ route('category.create')}}">Create a new category</a>
+<a class="btn-lg btn-info"href="{{ route('admin.categories.create')}}">Create a new category</a>
 
 <div class="login-with-facebook my-5">
     <a href="/">Back to main</a>
