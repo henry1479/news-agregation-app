@@ -9,7 +9,7 @@ function deleteNews() {
             event.preventDefault();
             const id = this.getAttribute("rel");
             if(confirm("Do you want delete this news?")) {
-                send('/news/delete/' + id)
+                send('/admin/news/'+ id )
                 .then(result => location.reload());
             }
         });

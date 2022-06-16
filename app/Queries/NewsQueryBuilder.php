@@ -5,9 +5,8 @@ namespace App\Queries;
 
 use App\Models\News;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class NewsQueryBuilder implements QueryBuilder
 {
@@ -17,13 +16,24 @@ class NewsQueryBuilder implements QueryBuilder
         return News::query();
     }
 
-    public function getNews($category): LengthAwarePaginator
+    // получение новостей по названию категории
+    public function getNews(string $category): LengthAwarePaginator
     {
-        // использование scope из модели
+        
         return News::join('categories', 'categories.id', '=', 'category_id')->select('news.title', 'news.author', 'news.description', 'news.id', 'news.status', 'categories.title as category_title')
             ->where('categories.title', '=', $category)
             ->paginate(10);
     }
+
+    // получение новостей по идентификатору категориии
+    public function getNewsByCategoryId(int $category_id): LengthAwarePaginator
+    {
+        
+        return News::where('category_id','=', $category_id)
+            ->paginate(10);
+    }
+
+    
 
     public function getNewsById($id)
     {

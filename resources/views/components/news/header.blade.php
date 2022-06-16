@@ -58,60 +58,18 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul>
-                                <li class="active"><a href="catagory.html">Top 10</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="catagory.html">Catagories</a></li>
-                                        <li><a href="single-post.html">Single Article</a></li>
-                                        <li><a href="quize-article.html">Quize Article</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="#">Dropdown</a>
-                                            <ul class="dropdown">
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="catagory.html">Catagories</a></li>
-                                                <li><a href="single-post.html">Single Article</a></li>
-                                                <li><a href="quize-article.html">Quize Article</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                @if(Auth::check() && Auth::user()->is_admin)
+                                    <li>
+                                        <a href="{{ route('admin.index')}}">To admin panel</a>
+                                    </li>
+                                @endif
                                 </li>
                                 <li><a href="{{ route('feedbacks.index')}}">Feedbacks</a></li>
                                 <li><a href="/orders/create">Make Order</a></li>
-                                <li><a href="index.html">Don’t Miss</a></li>
-                                <li><a href="#">Mega Menu</a>
-                                    <div class="megamenu">
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="catagory.html">Catagories</a></li>
-                                            <li><a href="single-post.html">Single Article</a></li>
-                                            <li><a href="quize-article.html">Quize Article</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="catagory.html">Catagories</a></li>
-                                            <li><a href="single-post.html">Single Article</a></li>
-                                            <li><a href="quize-article.html">Quize Article</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="catagory.html">Catagories</a></li>
-                                            <li><a href="single-post.html">Single Article</a></li>
-                                            <li><a href="quize-article.html">Quize Article</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                        <ul class="single-mega cn-col-4">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="catagory.html">Catagories</a></li>
-                                            <li><a href="single-post.html">Single Article</a></li>
-                                            <li><a href="quize-article.html">Quize Article</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
+                                @if(!Auth::check())
+                                    <li><a href="/register">Registration</a></li>
+                                    <li><a href="/login">Autorization</a></li>
+                                @endif
                             </ul>
 
                             <!-- Search Button -->

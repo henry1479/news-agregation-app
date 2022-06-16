@@ -10,6 +10,9 @@ use App\Http\Controllers\FeedbacksController as FeedbacksController;
 use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\IndexNewsController as AdminIndexNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 
 
 /*
@@ -30,26 +33,16 @@ Route::get('/', function() {
     return view('info', ['info'=> $info]);
 });
 
-// админские роуты'
-Route::group(['prefix'=>'admin', 'as'=>'admin.'], function(){
-    Route::resource('/categories', AdminCategoryController::class);
-    Route::resource('/news', AdminNewsController::class);
-   
-});
+
 
 // роуты новостей
 Route::group(['prefix'=>'news'], function () {
-    Route::get('/create', [NewsController::class, 'create'])->name('news.create');
-    Route::post('/store', [NewsController::class, 'store'])->name('news.store');
-    Route::get('/edit/{news_id}', [NewsController::class, 'edit'])->name('news.edit');
-    Route::post('/update/{news}', [NewsController::class, 'update'])->name('news.update');
-
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
     Route::get('/{category}', [NewsController::class, 'index']);
     Route::get('/{category}/{news_id}', [NewsController::class, 'show']);
-    Route::delete('/delete/{news_id}', [NewsController::class, 'destroy']);
 
 });
+
 // отзывы
 Route::get('/feedbacks', [FeedbacksController::class, 'index'])->name('feedbacks.index');
 Route::post('/feedbacks/store', [FeedbacksController::class, 'store'])->name('feedbacks.store');
@@ -72,6 +65,15 @@ Route::get('/sessions', function(){
 
 Route::group(['middleware'=>'auth'], function() {
     Route::get('/account', AccountController::class)->name('account');
+    // админские роуты
+    Route::group(['middleware' => 'admin', 'prefix'=>'admin', 'as'=>'admin.'], function(){
+        Route::get('/',AdminIndexController::class)->name('index');
+        Route::resource('/categories', AdminCategoryController::class);
+        Route::resource('/news', AdminNewsController::class);
+        Route::resource('/users', AdminUserController::class);
+        Route::get('/{category_id}', AdminIndexNewsController::class)->name('news.index');
+    });
+    
 });
 
 

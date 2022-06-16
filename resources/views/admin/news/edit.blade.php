@@ -6,10 +6,12 @@
 @include('inc.messages')
 <div>
 	<form method="post"
-		action="{{ route('news.update', ['news'=>$news]) }}">
+		action="{{ route('admin.news.update', ['news'=>$news]) }}">
 		@csrf
+		@method('put')
 		<div class="mb-3">
-			<label for="title" class="form-label">Tilte</label> <input
+			<label for="title" class="form-label">Tilte</label> 
+			<input
 				type="text" class="form-control" name="title"
 				value="{{ $news->title }}" />
 		</div>
@@ -17,9 +19,11 @@
 		<div class="mb-3">
 			<label for="category_id" class="form-label">Category</label> <select
 				name="category_id" id="category" class="form-control"
-				aria-label=".form-select-lg"> @foreach($categories as $category)
-				<option @if($category->id === old('$category->id')) selected @endif
-					value="{{$category->id}}">{{$category->title}}</option> @endforeach
+				aria-label=".form-select-lg"> 
+				@foreach($categories as $category)
+				<option @if($category->id === $news->category_id) selected @endif
+					value="{{ $category->id}}">{{$category->title}}</option> 
+				@endforeach
 			</select>
 		</div>
 		<div class="mb-3">
@@ -50,6 +54,6 @@
 </div>
 
 <div class="login-with-facebook my-5">
-	<a href="{{ route('categories')}}">Back to news</a>
+	<a href="{{ route( 'admin.news.index',['category_id'=>$news->category_id] ) }}">Back to news</a>
 </div>
 @endsection

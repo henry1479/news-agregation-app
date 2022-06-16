@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\News;
-use App\Queries\NewsQueryBuilder;
-use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Queries\NewsQueryBuilder;
+use App\Http\Requests\StoreRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateRequest;
 
 class NewsController extends Controller
 {
@@ -15,14 +17,9 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(NewsQueryBuilder $news, $id)
+    public function index(NewsQueryBuilder $news )
     {
-    
-        $category = Category::find($id);
-        dd($category);
-        return view('admin.news.index', [
-            'news' => $news->getNews($category)
-        ]);
+        // realization
     }
 
     /**
@@ -32,7 +29,10 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::select('title')->get();
+        return view('admin.news.create', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -41,9 +41,17 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $validated = $request->except(['_token']);
+        $validated['slug'] = \Str::slug($validated['title']);
+        $news = News::create($validated);
+        
+        if ($news->save()) {
+            return redirect('admin/'. $news->category_id)->with('success', 'node is added successfully');
+        }
+
+        return back()->with('error', 'Error of adding');
     }
 
     /**
@@ -65,7 +73,12 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        //
+        $categories = Category::select('id','title')->get();
+        
+        return view('admin.news.edit', [
+            'news' => $news,
+            'categories' => $categories
+        ]); 
     }
 
     /**
@@ -75,9 +88,16 @@ class NewsController extends Controller
      * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(UpdateRequest $request, News $news)
     {
-        //
+        $validated =  $request->except(['_token']);
+        $news = $news->fill($validated);
+        
+        if ($news->save()) {
+            return redirect('admin/'. $request->input('category_id'))->with('success', 'node is stored successfully');
+        }
+ 
+         return back()->with('error', 'Error of updating');
     }
 
     /**
@@ -88,6 +108,13 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        try {
+           
+            $news->delete();
+            return response()->json([$news->id => 'the news deleted successfully']);
+         } catch (\Exception $e) {
+             \Log::error($e->getMessage());
+             return response()->json(['error'=>true], 400);
+         }
     }
 }
