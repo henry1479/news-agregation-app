@@ -3,16 +3,18 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialController;
 use \App\Http\Controllers\NewsController as NewsController;
 use App\Http\Controllers\OrdersController as OrdersController;
 use \App\Http\Controllers\CategoryController as CategoryController;
 use App\Http\Controllers\FeedbacksController as FeedbacksController;
-use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexNewsController as AdminIndexNewsController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\ParserController as AdminParserController;
 
 
 /*
@@ -25,6 +27,21 @@ use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Девятое задание
+// 1. Добавить провайдера для работы с Facebook по аналогии с VK.
+// 2. Настроить авторизацию через Facebook по аналогии с VK. Документация:
+// https://developers.facebook.com/docs/facebook-login/web.
+// 3. Реализовать возможность получения информации из любых открытых сторонних сервисов
+// (https://news.yandex.ru, https://www.cbr-xml-daily.ru или другого).
+// 4. Реализовать сохранение полученных данных о новостях в БД. При необходимости изменения
+// таблиц — создать миграции, изменить формы добавления и редактирования новостей и
+// категорий.
+// 'github' => [
+//     'client_id' => env('GITHUB_CLIENT_ID'),
+//     'client_secret' => env('GITHUB_CLIENT_SECRET'),
+//     'redirect' => 'http://example.com/callback-url',
+// ],
+ 
 
 
 
@@ -68,12 +85,22 @@ Route::group(['middleware'=>'auth'], function() {
     // админские роуты
     Route::group(['middleware' => 'admin', 'prefix'=>'admin', 'as'=>'admin.'], function(){
         Route::get('/',AdminIndexController::class)->name('index');
+        Route::get('/parser', AdminParserController::class)->name('parser');
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/users', AdminUserController::class);
         Route::get('/{category_id}', AdminIndexNewsController::class)->name('news.index');
     });
     
+});
+
+Route::group(['middleware'=>'guest'], function (){
+	Route::get('/auth/{driver}/redirect', [SocialController::class, 'redirect'])
+	->where('driver','\w+')
+	->name('social.redirect');
+	Route::any('/auth/{driver}/callback', [SocialController::class,'callback'])
+	->where('driver','\w+')
+	->name('social.callback');
 });
 
 
