@@ -17,6 +17,7 @@
 
     <!-- Core Stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css')}}">
 
 </head>
 
@@ -55,6 +56,7 @@
     <script src="{{ asset('js/plugins/plugins.js')}}"></script>
     <!-- Active js -->
     <script src="{{ asset('js/active.js')}}"></script>
+    
     @stack('js')
 </body>
 

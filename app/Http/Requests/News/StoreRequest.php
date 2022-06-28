@@ -1,11 +1,11 @@
 <?php
-namespace App\Http\Requests;
+
+namespace App\Http\News\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -21,7 +21,7 @@ class UpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'category_id' => [
@@ -43,9 +43,9 @@ class UpdateRequest extends FormRequest
                 'max:50'
             ],
             'image' => [
-                'nullable',
                 'image',
-                'mimes:png,jpg'
+                'mimes:png,jpg',
+                'nullable'
             ],
             'status' => [
                 'sometimes',
@@ -61,23 +61,6 @@ class UpdateRequest extends FormRequest
                 'boolean'
             ]
         ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => 'Вы не заполнили поле :attribute'
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'title' => 'заголовок',
-            'author' => 'автор',
-            'status' => 'статус',
-            'description' => 'описание',
-            'image' => 'изображение'
-        ];
+        
     }
 }

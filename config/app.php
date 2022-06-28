@@ -142,6 +142,8 @@ return [
          * Laravel Framework Service Providers...
          */
         // Barryvdh\Debugbar\ServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         Orchestra\Parser\XmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -196,6 +198,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         // 'Debugbar'=> Barryvdh\Debugbar\Facade::class,
         'XmlParser' => Orchestra\Parser\Xml\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];

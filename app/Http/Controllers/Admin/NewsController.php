@@ -6,9 +6,10 @@ use App\Models\News;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Queries\NewsQueryBuilder;
-use App\Http\Requests\StoreRequest;
+use App\Http\Requests\News\StoreRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\News\UpdateRequest;
+use App\Services\Contract\Upload;
 
 class NewsController extends Controller
 {
@@ -29,7 +30,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $categories = Category::select('title')->get();
+        
+        $categories = Category::select('title','id')->get();
         return view('admin.news.create', [
             'categories' => $categories
         ]);
@@ -41,10 +43,14 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request, Upload $uploadService)
     {
         $validated = $request->except(['_token']);
         $validated['slug'] = \Str::slug($validated['title']);
+        if($request->hasFile('image')){
+            $validated['image'] = $uploadService->uploadImage($request->file('image'));
+        }
+        // dd($validated);
         $news = News::create($validated);
         
         if ($news->save()) {
@@ -88,12 +94,17 @@ class NewsController extends Controller
      * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, News $news)
+    public function update(UpdateRequest $request, News $news, Upload $uploadService)
     {
         $validated =  $request->except(['_token']);
+        if($request->hasFile('image')){
+            $validated['image'] = $uploadService->uploadImage($request->file('image'));
+        }
+
+        // dd($validated);
         $news = $news->fill($validated);
         
-        if ($news->save()) {
+        if($news->save()) {
             return redirect('admin/'. $request->input('category_id'))->with('success', 'node is stored successfully');
         }
  
@@ -109,7 +120,6 @@ class NewsController extends Controller
     public function destroy(News $news)
     {
         try {
-           
             $news->delete();
             return response()->json([$news->id => 'the news deleted successfully']);
          } catch (\Exception $e) {

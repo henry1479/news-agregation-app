@@ -15,10 +15,6 @@ return new class extends Migration
     {
         Schema::create('sources', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('news_id')
-                ->references('id')
-                ->on('news')
-                ->cascadeOnDelete();
             $table->string('source_name', 255);
             $table->string('source_url', 255);
             $table->timestamps();

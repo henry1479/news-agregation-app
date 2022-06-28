@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Auth;
+use UniSharp\LaravelFilemanager\Lfm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use \App\Http\Controllers\NewsController as NewsController;
@@ -12,9 +13,10 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
+use App\Http\Controllers\Admin\ParserController as AdminParserController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexNewsController as AdminIndexNewsController;
-use App\Http\Controllers\Admin\ParserController as AdminParserController;
+use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 
 
 /*
@@ -27,20 +29,7 @@ use App\Http\Controllers\Admin\ParserController as AdminParserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Девятое задание
-// 1. Добавить провайдера для работы с Facebook по аналогии с VK.
-// 2. Настроить авторизацию через Facebook по аналогии с VK. Документация:
-// https://developers.facebook.com/docs/facebook-login/web.
-// 3. Реализовать возможность получения информации из любых открытых сторонних сервисов
-// (https://news.yandex.ru, https://www.cbr-xml-daily.ru или другого).
-// 4. Реализовать сохранение полученных данных о новостях в БД. При необходимости изменения
-// таблиц — создать миграции, изменить формы добавления и редактирования новостей и
-// категорий.
-// 'github' => [
-//     'client_id' => env('GITHUB_CLIENT_ID'),
-//     'client_secret' => env('GITHUB_CLIENT_SECRET'),
-//     'redirect' => 'http://example.com/callback-url',
-// ],
+
  
 
 
@@ -48,6 +37,10 @@ use App\Http\Controllers\Admin\ParserController as AdminParserController;
 Route::get('/', function() {
     $info = 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem quos deleniti illum accusamus porro id excepturi, impedit nobis, numquam sapiente a, voluptas quis fuga ullam nesciunt velit at ipsa vero.';
     return view('info', ['info'=> $info]);
+});
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    Lfm::routes();
 });
 
 
@@ -89,6 +82,7 @@ Route::group(['middleware'=>'auth'], function() {
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/users', AdminUserController::class);
+        Route::resource('/sources', AdminSourceController::class);
         Route::get('/{category_id}', AdminIndexNewsController::class)->name('news.index');
     });
     

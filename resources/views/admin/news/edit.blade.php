@@ -5,12 +5,11 @@
 </div>
 @include('inc.messages')
 <div>
-	<form method="post"
-		action="{{ route('admin.news.update', ['news'=>$news]) }}">
+	<form method="post" action="{{ route('admin.news.update', ['news'=>$news]) }}" enctype="multipart/form-data">
 		@csrf
 		@method('put')
 		<div class="mb-3">
-			<label for="title" class="form-label">Tilte</label> 
+			<label for="title" class="form-label">Title</label> 
 			<input
 				type="text" class="form-control" name="title"
 				value="{{ $news->title }}" />
@@ -40,11 +39,15 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="image">Image</label> <input type="file" id="image"
-				name="image" class="form-control">
+			<label for="image">Image</label> 
+			<input type="file" id="image"
+				name="image" class="form-control" value="{{ old('image') }}">
+			@if($news->image)
+				<img src= "{{ Storage::url($news->image)}}" style="width: 30%"/>
+			@endif
 		</div>
 		<div class="mb-5">
-			<label for="description" class="form-label">Description</label>
+			<label for="description" class="form-label" id="description">Description</label>
 			<textarea type="text" class="form-control" name="description">{!! $news->description !!}</textarea>
 		</div>
 
@@ -57,3 +60,6 @@
 	<a href="{{ route( 'admin.news.index',['category_id'=>$news->category_id] ) }}">Back to news</a>
 </div>
 @endsection
+@push('js')
+<script src="{{ asset('js/dist/bundle.js') }}"></script>>
+@endpush

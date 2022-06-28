@@ -3,7 +3,11 @@
 @include('inc.messages')
 <div class="single-blog-post-details">
     <div class="post-thumb">
+    @if($news->image)   
+        <img src= "{{ Storage::disk('upload')->url($news['image'])}}"/>
+    @else 
         <img src="{{ asset('img/bg-img/')}}/<?=rand(1,24)?>.jpg" alt="{{$news->title}}">
+    @endif
     </div>
     <div class="post-data">
         <a href="#" class="post-catagory">{{ $category }}</a>

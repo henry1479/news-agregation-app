@@ -17,6 +17,7 @@ class News extends Model
         'title',
         'author',
         'slug',
+        'image',
         'status',
         'description',
         'only_admin'
@@ -37,6 +38,13 @@ class News extends Model
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+      
+      public function source(): BelongsTo
+      {
+          return $this->belongsTo(Source::class, 'source_id', 'id');
+      }
+
 
     // scopes
     public function scopeActive($query)

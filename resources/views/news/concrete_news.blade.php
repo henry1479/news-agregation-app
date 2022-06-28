@@ -1,10 +1,15 @@
 @extends('index')
 @section('content')
 @include('inc.messages')
-<div class="single-blog-post-details">
-    <div class="post-thumb">
-        <img src="{{ asset('img/bg-img/')}}/<?=rand(1,24)?>.jpg" alt="{{$news->title}}">
+    <div class="single-blog-post-details">
+        <div class="post-thumb">
+        @if($news->image)
+            <img src= "{{ Storage::disk('upload')->url($news['image'])}}"/>
+        @else 
+            <img src="{{ asset('img/bg-img/')}}/<?=rand(1,24)?>.jpg" alt="{{$news->title}}">
+        @endif
     </div>
+
     <div class="post-data">
         <a href="#" class="post-catagory">{{ $category }}</a>
         <h2 class="post-title">{{ $news->title }}</h2>
@@ -26,7 +31,6 @@
             <p>{{ $news -> description }}</p>
         </div>
     </div>
-    <a href="{{ route('news.edit', ['news_id'=>$news->id])}}"><h4>Edit this news</h4></a>
     <div class="login-with-facebook my-5">
         <a href="{{ route('categories')}}/{{ $category }}">Back to news</a>
     </div>

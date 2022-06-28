@@ -1,7 +1,6 @@
 
 
 <header class="header-area">
-
     <!-- Top Header Area -->
     <div class="top-header-area">
         <div class="container">
@@ -40,7 +39,7 @@
                 <nav class="classy-navbar justify-content-between" id="viralnewsNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="index.html"><img src="img/core-img/logo.png" alt="Logo"></a>
+                    <a class="nav-brand" href="index.html"><img src="{{ asset('img/core-img/logo.png')}}" alt="Logo"></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -85,10 +84,10 @@
                                 </form>
                             </div>
 
-                            <!-- Video Post Button -->
+                            <!-- Video Post Button
                             <div class="add-post-button">
                                 <a href="#" class="btn add-post-btn">Add Post</a>
-                            </div>
+                            </div> -->
 
                         </div>
                         <!-- Nav End -->

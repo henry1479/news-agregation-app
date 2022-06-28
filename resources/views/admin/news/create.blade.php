@@ -1,22 +1,25 @@
-@extends('index') @section('content') @dump(old('title'))
+@extends('index')
+@section('content')
 <div style="margin-bottom: 10%;">
 	<h2>Add news</h2>
 </div>
 @include('inc.messages')
 <div>
 	<form action="{{ route('admin.news.store') }}" method="post" enctype="multipart/form-data">
-		@csrf <label class="form-label" for="title">Tilte</label> <input
+		@csrf 
+		<label class="form-label" for="title">Tilte</label> <input
 			type="text" name="title" class="form-control mb-3"
 			value="{{ old('title') }}" /> <label class="form-label"
 			for="category_id">Category</label> <select name="category_id"
 			id="category" class="form-control mb-3">
 			@foreach($categories as $category)
 			<option @if($category->id === old('$category->id')) selected @endif
-				value="{{$category->id}}">{{$category->title}}</option> 
+				value="{{ $category->id }}">{{$category->title}}</option> 
 			@endforeach
 		</select>
 		<div class="form-group">
-			<label for="status">Status</label> <select class="form-control"
+			<label for="status">Status</label>
+			<select class="form-control"
 				name="status" id="status">
 				<option @if(old('status') === 'DRAFT') selected @endif>DRAFT</option>
 				<option @if(old('status') === 'ACTIVE') selected @endif>ACTIVE</option>
@@ -24,9 +27,9 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label for="image">Image</label> <input type="file" id="image"
-				name="image" class="form-control">
-		</div>
+			<label for="image">Image</label> 
+			<input type="file" id="image" name="image" class="form-control" value="{{ old('image')}}">
+		</div> 
 		<label class="form-label" for="author">Author</label> <input
 			class="form-control" type="text" name="author"
 			value="{{ old('author') }}" /> <label class="form-label"
