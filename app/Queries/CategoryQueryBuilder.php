@@ -26,4 +26,16 @@ class CategoryQueryBuilder implements  QueryBuilder
         return Category::select('id','title','description')
             ->findOrFail($id);
     }
+
+    public function addCategory($name,$description){
+        $category = Category::firstOrCreate([
+            'title'=> $name,
+            'description' => $description
+        ]);
+        if($category->save()){
+            return $category->id;
+        }
+        return false;
+    }
+
 }

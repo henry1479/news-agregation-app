@@ -15,7 +15,9 @@
             <a class="post-title" href="{{ route('admin.news.edit', ['news' => $newsItem->id] )}}"><h6>{{ $newsItem->title}}</h6></a>
             <p>{{ $newsItem->description }}</p>
             <div class="post-meta">
-                <small class="post-data">created at: 20.10.22</small>
+            @if($newsItem->created_at)
+                <small class="post-data">created at: {{ $newsItem->created_at }}</small>
+            @endif
             </div>
         </div>
         <a href="#" class="delete" rel="{{ $newsItem->id }}" category="{{ $newsItem->category_title}}"><h6>Delete this news</h6></a>       

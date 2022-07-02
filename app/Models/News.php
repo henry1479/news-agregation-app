@@ -2,13 +2,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class News extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     protected $table = "news";
 
@@ -20,7 +21,9 @@ class News extends Model
         'image',
         'status',
         'description',
-        'only_admin'
+        'only_admin',
+        'source_id',
+        'creared_at'
     ];
 
     // указываем тип данных
@@ -30,7 +33,7 @@ class News extends Model
 
     // форматируем дату  в карбон объект 
     protected $dates = [
-        'activated_at'
+        'created_at'
     ];
 
     // прописываем обратную связь
@@ -55,6 +58,15 @@ class News extends Model
     public function scopeDarft($query)
     {
         return $query->where('status', 'DRAFT');
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
 

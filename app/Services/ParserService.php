@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+
 use App\Services\Contract\Parser;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
@@ -34,12 +35,12 @@ class ParserService implements Parser
 			'image' => [
 				'uses' => 'channel.image.url'
 			],
-			'lastBuildDate' => [
-				'uses' => 'channel.lastBuildDate'
+			'pubDate' => [
+				'uses' => 'channel.pubDate'
 			],
-			// 
+			
 			'news' => [
-				'uses' => 'channel.item[title,link,description,image,lastBuildDate]'
+				'uses' => 'channel.item[title,description,image,pubDate]'
             ]
 
 		]);

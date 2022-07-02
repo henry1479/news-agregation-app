@@ -38,9 +38,13 @@ class SourceController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $request->validate();
+       
         $validated = $request->except(['_token']);
-        // todo реализовать запись в базе данных
+        $source = Source::create($validated);
+        if($source->save()){
+            return back()->with('success', 'The source is added');
+        }
+        return back()->with('error', 'the error of adding the occured');
     }
 
     /**

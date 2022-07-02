@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use UniSharp\LaravelFilemanager\Lfm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\NewsByOrderController;
 use \App\Http\Controllers\NewsController as NewsController;
 use App\Http\Controllers\OrdersController as OrdersController;
 use \App\Http\Controllers\CategoryController as CategoryController;
@@ -14,9 +15,9 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\ParserController as AdminParserController;
+use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexNewsController as AdminIndexNewsController;
-use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 
 
 /*
@@ -60,6 +61,7 @@ Route::post('/feedbacks/store', [FeedbacksController::class, 'store'])->name('fe
 // оформление заказа
 Route::group(['name'=>'orders','middleware' => 'admin'], function(){
     Route::resource('/orders', OrdersController::class);
+    Route::get('/orders/news', NewsByOrderController::class);
 });
 
 
