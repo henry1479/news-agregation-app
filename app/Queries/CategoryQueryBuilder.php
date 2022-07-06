@@ -3,10 +3,11 @@ declare(strict_type=1);
 
 namespace App\Queries;
 
+use App\Models\News;
 use  App\Models\Category;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class CategoryQueryBuilder implements  QueryBuilder
 {
@@ -17,7 +18,7 @@ class CategoryQueryBuilder implements  QueryBuilder
 
     public function getCategories():LengthAwarePaginator
     {
-        return Category::select('id','title','description')->paginate(10);
+        return Category::select('id','title','description')->paginate(5);
     }
 
 
@@ -37,5 +38,18 @@ class CategoryQueryBuilder implements  QueryBuilder
         }
         return false;
     }
+
+    public function hasNoNews()
+    {
+        
+        return News::rightJoin('categories','news.category_id','=', 'categories.id')
+        ->select('categories.id', 'categories.title', 'categories.description')
+        ->distinct()
+        ->whereNotNull('news.id')
+        ->simplePaginate(5);
+    }
+            
+    
+    
 
 }

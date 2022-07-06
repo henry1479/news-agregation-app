@@ -10,7 +10,8 @@
 		<label class="form-label" for="title">Tilte</label> <input
 			type="text" name="title" class="form-control mb-3"
 			value="{{ old('title') }}" /> <label class="form-label"
-			for="category_id">Category</label> <select name="category_id"
+			for="category_id">Category</label> 
+			<select name="category_id"
 			id="category" class="form-control mb-3">
 			@foreach($categories as $category)
 			<option @if($category->id === old('$category->id')) selected @endif

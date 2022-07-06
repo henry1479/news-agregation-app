@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Source;
 use Illuminate\Http\Request;
 use App\Services\Contract\Parser;
-
+use App\Queries\SourceQueryBuilder;
+use Illuminate\Pagination\LengthAwarePaginator;
 class NewsByOrderController extends Controller
 {
 
@@ -16,16 +16,18 @@ class NewsByOrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Parser $parser)
+    public function __invoke(Parser $parser, SourceQueryBuilder $builder)
     {
-        $source = Source::first();
-        dd($source);
+        $url = $builder->getSourceUrlByOrderInfo();
+        
         $urls = [
             // вставляем данные из таблицы sources
         ];
-
-        $news = $parser->setLink($source->url)->parse();
-        return view('orders.order_news', ['news'=> $news]);
+        
+        $news = $parser->setLink($url)->parse();
+        // dd(collect($news['news']));
+        $newsCollect = collect($news['news']);
+        return view('orders.news', ['news'=>$newsCollect, 'category'=> $news['title']]);
     
         
     }

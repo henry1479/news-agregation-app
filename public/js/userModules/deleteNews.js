@@ -8,8 +8,9 @@ function deleteNews() {
         value.addEventListener('click', function(event){
             event.preventDefault();
             const id = this.getAttribute("rel");
+            const name = this.getAttribute("name");
             if(confirm("Do you want delete this news?")) {
-                send('/admin/news/'+ id )
+                send(`/admin/${name}/${id} `)
                 .then(result => location.reload());
             }
         });

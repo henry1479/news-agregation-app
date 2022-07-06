@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function index(CategoryQueryBuilder $category)
     {
         
-        return view('admin.categories.index', ['news'=>$category->getCategories()]);
+        return view('admin.categories.index', ['news'=>$category->hasNoNews()]);
     }
 
     /**
@@ -118,6 +118,12 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        
+        try {
+            $category->delete();
+            return response()->json([$category->id => 'the news deleted successfully']);
+        } catch (\Exception $e) {
+             \Log::error($e->getMessage());
+             return response()->json(['error'=>true], 400);
+        }
     }
 }

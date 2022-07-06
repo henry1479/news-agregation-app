@@ -14,6 +14,8 @@
                 <a href="{{ route('admin.categories.edit', ['category'=>$category->id])}}">
                     Edit category
                 </a>
+                <a href="#" class="delete" name="categories" rel="{{ $category->id }}"><h6>Delete this category</h6></a>       
+    
             </div>
         </div>
     </div>
@@ -28,4 +30,7 @@
     <a href="/">Back to main</a>
 </div>
 @endsection
+@push('js')
+<script src="{{ asset('js/userModules/deleteNews.js')}}"></script>
+@endpush
 

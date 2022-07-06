@@ -59,9 +59,9 @@ Route::get('/feedbacks', [FeedbacksController::class, 'index'])->name('feedbacks
 Route::post('/feedbacks/store', [FeedbacksController::class, 'store'])->name('feedbacks.store');
 
 // оформление заказа
-Route::group(['name'=>'orders','middleware' => 'admin'], function(){
-    Route::resource('/orders', OrdersController::class);
-    Route::get('/orders/news', NewsByOrderController::class);
+Route::group(['as'=>'orders.', 'prefix'=>'orders','middleware' => 'admin'], function(){
+    Route::resource('/', OrdersController::class);
+    Route::get('/news', NewsByOrderController::class)->name('news');
 });
 
 

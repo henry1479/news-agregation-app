@@ -20,7 +20,7 @@
             @endif
             </div>
         </div>
-        <a href="#" class="delete" rel="{{ $newsItem->id }}" category="{{ $newsItem->category_title}}"><h6>Delete this news</h6></a>       
+        <a href="#" class="delete" rel="{{ $newsItem->id }}" name="news" category="{{ $newsItem->category_title}}"><h6>Delete this news</h6></a>       
     </div>
 </div>
 <hr/>

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Source;
 use App\Queries\OrderQueryBuilder;
 
 class OrdersController extends Controller
@@ -14,7 +15,7 @@ class OrdersController extends Controller
         'user_name'=>'required|min:2|max:20',
         'user_email'=>'required|email',
         'user_phone'=> 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-        'order_info'=> 'required|string|min:10'
+        'order_info'=> 'required|string'
     ];
     /**
      * Display a listing of the resource.
@@ -35,7 +36,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        return view('orders.create');
+        return view('orders.create',['sources'=>Source::select('id','source_name')->get()]);
     }
 
     /**
@@ -51,8 +52,9 @@ class OrdersController extends Controller
         $order = Order::create($validated);
         if($order->save()){
             return redirect()
-            ->route('orders.index')
-            ->with('success','the node is added successfully');
+            ->route('orders.news')
+            ->with('order_info', $validated['order_info']);
+            
         }
         
         return back()->with('error', 'Error of adding');

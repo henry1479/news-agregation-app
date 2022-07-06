@@ -18,9 +18,6 @@
               <b>{{ $order->order_info }}</b>
               <br>
               <br>
-                <a href="{{ route('orders.edit',['order'=>$order->id])}}" class="link">
-                    Edit order
-                </a>
             </div>
         </div>
         <hr>
