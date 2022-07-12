@@ -12,9 +12,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 Приложение "Агрегатор новостей" реализует возможность отображения новостей и их категорий. Есть возможность получать новости из сторонних источников и парсить их в базу данных через XML-parser Orchestra . Реализованы: регистрация и авторизация возможностями Laravel Sanctum и Socialite. Для работы  с базой данных используется ORM Laravel Eloquent и конструктор запросов. На всех формах имеется  встроенная валидация с локализацией на русском языке.
-<b>Реализованы:</b>
+<p><b>Реализованы:</b></p>
 <ul>
-    <li>отображение новостей по категориям и отдельно каждую новость</li>;
+  <li>отображение новостей по категориям и отдельно каждую новость;</li>
  <li>авторизация и регистрация пользователей;</li>
  <li>оформление заказа на вывод новостей по темам, имеющимся на ресурсе;</li>
  <li>возможность оставить отзыв на работу приложения;</li>
@@ -25,7 +25,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 The News Aggregator application implements the ability to display news and their categories. It is possible to receive news from third-party sources and parse them into a database via XML-parser Orchestra. Implemented: registration and authorization by Laravel Sanctum and Socialite capabilities. To work with the database, the Laravel Eloquent ORM and the query constructor are used. All forms have built-in validation with localization in Russian.
-<b>Implemented:</b>
+<p><b>Implemented:</b></p>
 <ul>
  <li>displaying news by category and separately each news;</li>
  <li>authorization and registration of users;</li>
