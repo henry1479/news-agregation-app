@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('author')->default('Admin');
             $table->string('image', 255)->nullable(); 
             $table->enum('status',['DRAFT','ACTIVE','BLOCKED'])->default('DRAFT');
-            $table->string('description', 255);
+            $table->string('description');
             $table->timestamps();
             $table->index('status');
         });

@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ParserController as AdminParserController;
 use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexNewsController as AdminIndexNewsController;
+use App\Http\Controllers\SearchNewsController;
 
 
 /*
@@ -31,7 +32,7 @@ use App\Http\Controllers\Admin\IndexNewsController as AdminIndexNewsController;
 |
 */
 
- 
+
 
 
 
@@ -48,9 +49,12 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 
 // роуты новостей
 Route::group(['prefix'=>'news'], function () {
+    
     Route::get('/', [CategoryController::class, 'index'])->name('categories');
+    Route::get('/search', [SearchNewsController::class, 'search'])->name('search');
     Route::get('/{category}', [NewsController::class, 'index']);
     Route::get('/{category}/{news_id}', [NewsController::class, 'show']);
+
 
 });
 
@@ -87,7 +91,7 @@ Route::group(['middleware'=>'auth'], function() {
         Route::resource('/sources', AdminSourceController::class);
         Route::get('/{category_id}', AdminIndexNewsController::class)->name('news.index');
     });
-    
+
 });
 
 Route::group(['middleware'=>'guest'], function (){

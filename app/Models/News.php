@@ -5,11 +5,12 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 
 class News extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory, Sluggable, Searchable;
 
     protected $table = "news";
 
@@ -31,7 +32,7 @@ class News extends Model
         'only_admin' => 'boolean'
     ];
 
-    // форматируем дату  в карбон объект 
+    // форматируем дату  в карбон объект
     protected $dates = [
         'created_at'
     ];
@@ -42,7 +43,7 @@ class News extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-      
+
       public function source(): BelongsTo
       {
           return $this->belongsTo(Source::class, 'source_id', 'id');
@@ -67,6 +68,17 @@ class News extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return array('id' => $array['id'],'description' => $array['description']);
     }
 }
 

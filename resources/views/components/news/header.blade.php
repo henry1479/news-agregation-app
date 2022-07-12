@@ -78,16 +78,13 @@
 
                             <!-- Search Form -->
                             <div class="viral-search-form">
-                                <form id="search" action="#" method="get">
+                                <form id="search" action="{{ route('search') }}" method="get">
+                                    @csrf
                                     <input type="text" name="search-terms" placeholder="Enter your keywords ...">
                                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </form>
                             </div>
 
-                            <!-- Video Post Button
-                            <div class="add-post-button">
-                                <a href="#" class="btn add-post-btn">Add Post</a>
-                            </div> -->
 
                         </div>
                         <!-- Nav End -->
