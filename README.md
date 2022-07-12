@@ -12,22 +12,25 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 Приложение "Агрегатор новостей" реализует возможность отображения новостей и их категорий. Есть возможность получать новости из сторонних источников и парсить их в базу данных через XML-parser Orchestra . Реализованы: регистрация и авторизация возможностями Laravel Sanctum и Socialite. Для работы  с базой данных используется ORM Laravel Eloquent и конструктор запросов. На всех формах имеется  встроенная валидация с локализацией на русском языке.
-Реализованы:
- отображение новостей по категориям и отдельно каждую новость;
- авторизация и регистрация пользователей;
- оформление заказа на вывод новостей по темам, имеющимся на ресурсе;
- возможность оставить отзыв на работу приложения;
- создание, редактирование и удаление новости, редактирование пользователей в режиме администратора;
- возможность использование очередей при загрузке новостей со сторонних ресурсов в базу данных.
-
+<b>Реализованы:</b>
+<ul>
+    <li>отображение новостей по категориям и отдельно каждую новость</li>;
+ <li>авторизация и регистрация пользователей;</li>
+ <li>оформление заказа на вывод новостей по темам, имеющимся на ресурсе;</li>
+ <li>возможность оставить отзыв на работу приложения;</li>
+ <li>создание, редактирование и удаление новости, редактирование пользователей в режиме администратора;</li>
+ <li>возможность использование очередей при загрузке новостей со сторонних ресурсов в базу данных.</li>
+</ul>
 
 
 
 The News Aggregator application implements the ability to display news and their categories. It is possible to receive news from third-party sources and parse them into a database via XML-parser Orchestra. Implemented: registration and authorization by Laravel Sanctum and Socialite capabilities. To work with the database, the Laravel Eloquent ORM and the query constructor are used. All forms have built-in validation with localization in Russian.
-Implemented:
- displaying news by category and separately each news;
- authorization and registration of users;
- placing an order for the output of news on topics available on the resource;
- the ability to leave feedback on the operation of the application;
- creating, editing and deleting news, editing users in administrator mode;
- the ability to use queues when uploading news from third-party resources to the database.
+<b>Implemented:</b>
+<ul>
+ <li>displaying news by category and separately each news;</li>
+ <li>authorization and registration of users;</li>
+ <li>placing an order for the output of news on topics available on the resource;</li>
+ <li>the ability to leave feedback on the operation of the application;</li>
+ <li>creating, editing and deleting news, editing users in administrator mode;</li>
+ <li>the ability to use queues when uploading news from third-party resources to the database.</li>
+</ul>
