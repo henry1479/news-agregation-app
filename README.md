@@ -11,7 +11,7 @@
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
-Приложение "Агрегатор новостей" реализует возможность отображения новостей и их категорий. Есть возможность получать новости из сторонних источников и парсить их в базу данных через XML-parser Orchestra . Реализованы: регистрация и авторизация возможностями Laravel Sanctum и Socialite. Для работы  с базой данных используется ORM Laravel Eloquent и конструктор запросов. На всех формах имеется  встроенная валидация с локализацией на русском языке.
+Приложение "Агрегатор новостей" реализует возможность отображения новостей и их категорий. Есть возможность получать новости из сторонних источников и парсить их в базу данных через XML-parser Orchestral . Реализованы: регистрация и авторизация возможностями Laravel UI и Socialite. Для работы  с базой данных используется ORM Laravel Eloquent и конструктор запросов. На всех формах имеется  встроенная валидация с локализацией на русском языке.
 <p><b>Реализованы:</b></p>
 <ul>
   <li>отображение новостей по категориям и отдельно каждую новость;</li>
@@ -24,7 +24,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 
-The News Aggregator application implements the ability to display news and their categories. It is possible to receive news from third-party sources and parse them into a database via XML-parser Orchestra. Implemented: registration and authorization by Laravel Sanctum and Socialite capabilities. To work with the database, the Laravel Eloquent ORM and the query constructor are used. All forms have built-in validation with localization in Russian.
+The News Aggregator application implements the ability to display news and their categories. It is possible to receive news from third-party sources and parse them into a database via XML-parser Orchestral. Implemented: registration and authorization by Laravel UI and Socialite capabilities. To work with the database, the Laravel Eloquent ORM and the query constructor are used. All forms have built-in validation with localization in Russian.
 <p><b>Implemented:</b></p>
 <ul>
  <li>displaying news by category and separately each news;</li>
